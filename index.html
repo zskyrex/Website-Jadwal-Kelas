@@ -800,7 +800,7 @@ body {
             <div class="current-lesson-highlight">
                 <div class="highlight-title">
                     <span class="status-indicator status-live"></span>
-                    PELAJARAN SEDANG BERLANGSUNG
+                    <span id="highlightTitle">DETEKSI PELAJARAN SEDANG BERLANGSUNG</span>
                 </div>
                 
                 <div class="lesson-info">
@@ -905,54 +905,55 @@ body {
 </div>
 
 <script>
-// ===== DATA JADWAL YANG DIPERBAIKI =====
+// ===== DATA JADWAL - MENGHAPUS ISTIRAHAT JAM 8-9AN, ISHOMA TETAP =====
 const scheduleData = {
     "Senin": [
-        { time: "07:15-08:00", subject: "Upacara", icon: "🇮🇩", teacher: "-" },
-        { time: "08:00-10:30", subject: "Matematika Tingkat Lanjut", icon: "🧮", teacher: "Bu Mulyani" },
-        { time: "10:30-12:00", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo" },
-        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-" },
-        { time: "12:45-14:15", subject: "B. Indonesia", icon: "📖", teacher: "Bu Zaibah" },
-        { time: "14:15-15:45", subject: "PKU", icon: "⚽", teacher: "Miss Asih Kurniati" },
+        { time: "07:15-08:00", subject: "Upacara", icon: "🇮🇩", teacher: "-", duration: 45 },
+        { time: "08:00-10:30", subject: "Matematika Tingkat Lanjut", icon: "🧮", teacher: "Bu Mulyani", duration: 150 },
+        { time: "10:30-12:00", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo", duration: 90 },
+        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-", duration: 45, isBreak: true },
+        { time: "12:45-14:15", subject: "B. Indonesia", icon: "📖", teacher: "Bu Zaibah", duration: 90 },
+        { time: "14:15-15:45", subject: "PKU", icon: "⚽", teacher: "Miss Asih Kurniati", duration: 90 },
     ],
     "Selasa": [
-        { time: "07:15-08:45", subject: "Matematika", icon: "📐", teacher: "Bu Norhazani" },
-        { time: "08:45-10:30", subject: "PJOK", icon: "⚽", teacher: "Pak Erizal" },
-        { time: "10:30-12:00", subject: "B. Indonesia", icon: "📖", teacher: "Bu Zaibah" },
-        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-" },
-        { time: "12:45-14:15", subject: "SJI", icon: "🌏", teacher: "Pak Syafrizalman" },
-        { time: "14:15-15:45", subject: "Seni Budaya", icon: "🎨", teacher: "Bu Roha" }
+        { time: "07:15-08:45", subject: "Matematika", icon: "📐", teacher: "Bu Norhazani", duration: 90 },
+        { time: "08:45-10:30", subject: "PJOK", icon: "⚽", teacher: "Pak Erizal", duration: 105 },
+        { time: "10:30-12:00", subject: "B. Indonesia", icon: "📖", teacher: "Bu Zaibah", duration: 90 },
+        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-", duration: 45, isBreak: true },
+        { time: "12:45-14:15", subject: "SJI", icon: "🌏", teacher: "Pak Syafrizalman", duration: 90 },
+        { time: "14:15-15:45", subject: "Seni Budaya", icon: "📖", teacher: "Bu Roha", duration: 90 }
     ],
     "Rabu": [
-        { time: "07:15-09:30", subject: "PAI", icon: "☪", teacher: "Bu Umi Hasanah" },
-        { time: "09:45-12:00", subject: "Fisika", icon: "💡", teacher: "Bu Heppy Samosir" },
-        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-" },
-        { time: "12:45-14:15", subject: "Ekonomi Tingkat Lanjut", icon: "💸", teacher: "Bu Dewiana" },
-        { time: "14:15-15:45", subject: "Matematika Tingkat Lanjut", icon: "🧮", teacher: "Bu Mulyani" },
+        { time: "07:15-09:30", subject: "PAI", icon: "☪", teacher: "Bu Umi Hasanah", duration: 135 },
+        { time: "09:45-12:00", subject: "Fisika", icon: "💡", teacher: "Bu Heppy Samosir", duration: 135 },
+        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-", duration: 45, isBreak: true },
+        { time: "12:45-14:15", subject: "Ekonomi Tingkat Lanjut", icon: "💸", teacher: "Bu Dewiana", duration: 90 },
+        { time: "14:15-15:45", subject: "Matematika Tingkat Lanjut", icon: "🧮", teacher: "Bu Mulyani", duration: 90 },
         { time: "-", subject: "Pulang", icon: "🏠", teacher: "-" }
     ],
     "Kamis": [
-        { time: "07:15-08:00", subject: "Pembiasaan/Senam", icon: "🗣", teacher: "-" },
-        { time: "08:00-10:30", subject: "Ekonomi Tingkat Lanjut", icon: "💸", teacher: "Bu Dewiana" },
+        { time: "07:15-08:00", subject: "Pembiasaan/Senam", icon: "🗣", teacher: "-", duration: 45 },
+        { time: "08:00-10:30", subject: "Ekonomi Tingkat Lanjut", icon: "💸", teacher: "Bu Dewiana", duration: 150 },
         { 
             time: "10:30-13:30", 
             subject: "Bahasa Inggris", 
             icon: "👩‍🏫", 
             teacher: "Ma'am Trismi Sumarni",
+            duration: 180,
             isLongLesson: true,
             breakInfo: "Ishoma 12:00-12:45 termasuk dalam pelajaran ini"
         },
-        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-", isBreakInLesson: true },
-        { time: "13:30-14:15", subject: "PJOK", icon: "⚽", teacher: "Pak Erizal" },
-        { time: "14:15-15:45", subject: "Fisika", icon: "💡", teacher: "Bu Heppy Samosir" },
+        { time: "12:00-12:45", subject: "Ishoma", icon: "🕌", teacher: "-", duration: 45, isBreak: true, isBreakInLesson: true },
+        { time: "13:30-14:15", subject: "PJOK", icon: "⚽", teacher: "Pak Erizal", duration: 45 },
+        { time: "14:15-15:45", subject: "Fisika", icon: "💡", teacher: "Bu Heppy Samosir", duration: 90 },
     ],
     "Jumat": [
-        { time: "07:15-07:45", subject: "Kultum", icon: "☪", teacher: "-" },
-        { time: "07:45-09:05", subject: "Matematika", icon: "📐", teacher: "Bu Norhazani" },
-        { time: "09:05-10:40", subject: "PPKN", icon: "🏛️", teacher: "Bu Rijawati" },
-        { time: "10:40-11:15", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo" },
-        { time: "11:15-13:10", subject: "Sholat Jumat", icon: "🕌", teacher: "-" },
-        { time: "13:10-14:30", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo" }
+        { time: "07:15-07:45", subject: "Kultum", icon: "☪", teacher: "-", duration: 30 },
+        { time: "07:45-09:05", subject: "Matematika", icon: "📐", teacher: "Bu Norhazani", duration: 80 },
+        { time: "09:05-10:40", subject: "PPKN", icon: "🏛️", teacher: "Bu Rijawati", duration: 95 },
+        { time: "10:40-11:15", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo", duration: 35 },
+        { time: "11:15-13:10", subject: "Sholat Jumat", icon: "🕌", teacher: "-", duration: 115, isBreak: true },
+        { time: "13:10-14:30", subject: "TIK Tingkat Lanjut", icon: "💻", teacher: "Pak Herry Paengestu Widodo", duration: 80 }
     ],
     "Sabtu": [
         { time: "-", subject: "HARI LIBUR", icon: "😴", teacher: "-" },
@@ -1076,12 +1077,66 @@ function switchDay(day) {
     renderSchedule(day);
 }
 
+// ===== FUNGSI BANTU WAKTU YANG DIPERBAIKI =====
+function parseTimeToMinutes(timeString) {
+    if (!timeString || timeString === "-") return null;
+    
+    const [timePart] = timeString.split("-");
+    const [hours, minutes] = timePart.split(":").map(num => parseInt(num));
+    
+    return hours * 60 + minutes;
+}
+
+function calculateEndTime(startMinutes, duration) {
+    return startMinutes + duration;
+}
+
+function formatMinutesToTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+}
+
+function getCurrentLessonIndex(day, nowMinutes) {
+    const schedule = scheduleData[day];
+    if (!schedule) return -1;
+    
+    for (let i = 0; i < schedule.length; i++) {
+        const lesson = schedule[i];
+        if (!lesson.time || lesson.time === "-") continue;
+        
+        const startMinutes = parseTimeToMinutes(lesson.time);
+        if (startMinutes === null) continue;
+        
+        const duration = lesson.duration || 45;
+        const endMinutes = startMinutes + duration;
+        
+        // Khusus untuk Kamis - Bahasa Inggris yang panjang
+        if (day === "Kamis" && lesson.isLongLesson) {
+            const englishStart = 10 * 60 + 30; // 10:30
+            const englishEnd = 13 * 60 + 30;   // 13:30
+            
+            if (nowMinutes >= englishStart && nowMinutes < englishEnd) {
+                return i;
+            }
+        }
+        // Untuk pelajaran normal
+        else if (nowMinutes >= startMinutes && nowMinutes < endMinutes) {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
 // ===== RENDER JADWAL YANG DIPERBAIKI =====
 function renderSchedule(day) {
     const schedule = scheduleData[day];
     if (!schedule) return;
     
     const scheduleTable = document.getElementById("scheduleTable");
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
     
     // Kosongkan tabel
     scheduleTable.innerHTML = "";
@@ -1101,57 +1156,33 @@ function renderSchedule(day) {
     schedule.forEach((item, index) => {
         const timeSlot = document.createElement("div");
         
-        // Cek status pelajaran (dengan perbaikan untuk pelajaran panjang)
+        // Cek status pelajaran
         let className = "time-slot";
-        const now = new Date();
-        const nowMinutes = now.getHours() * 60 + now.getMinutes();
-        
-        // Parse waktu
-        let startMinutes = 0;
-        let endMinutes = 0;
         
         if (item.time !== "-") {
-            const [startTime] = item.time.split("-");
-            const [hour, minute] = startTime.split(":").map(Number);
-            startMinutes = hour * 60 + minute;
-            endMinutes = startMinutes + getLessonDuration(day, index);
-        }
-        
-        // Cek apakah pelajaran sedang berlangsung (dengan pengecualian untuk ishoma dalam pelajaran panjang)
-        let isCurrent = false;
-        
-        if (day === currentDay && item.time !== "-") {
-            // Khusus untuk Kamis - Bahasa Inggris yang panjang
-            if (day === "Kamis" && item.subject === "Bahasa Inggris") {
-                const lessonStartMinutes = 10 * 60 + 30; // 10:30
-                const lessonEndMinutes = 13 * 60 + 30;   // 13:30
-                isCurrent = (nowMinutes >= lessonStartMinutes && nowMinutes < lessonEndMinutes);
-            } 
-            // Untuk ishoma yang ada di tengah pelajaran Bahasa Inggris
-            else if (item.isBreakInLesson && day === "Kamis") {
-                // Ishoma dianggap bagian dari pelajaran Bahasa Inggris
-                const lessonStartMinutes = 10 * 60 + 30; // 10:30
-                const lessonEndMinutes = 13 * 60 + 30;   // 13:30
-                isCurrent = (nowMinutes >= lessonStartMinutes && nowMinutes < lessonEndMinutes);
+            const startMinutes = parseTimeToMinutes(item.time);
+            if (startMinutes !== null) {
+                const duration = item.duration || 45;
+                const endMinutes = startMinutes + duration;
+                
+                // Deteksi status berdasarkan hari dan waktu
+                if (day === currentDay) {
+                    if (item.isBreak) {
+                        className += " break-time";
+                    } else if (nowMinutes >= startMinutes && nowMinutes < endMinutes) {
+                        className += " current";
+                    } else if (nowMinutes >= endMinutes) {
+                        className += " passed";
+                    } else if (nowMinutes < startMinutes) {
+                        className += " future";
+                    }
+                } else if (day === tomorrowDay) {
+                    className += " tomorrow-lesson";
+                }
             }
-            // Untuk pelajaran normal
-            else if (startMinutes > 0) {
-                isCurrent = (nowMinutes >= startMinutes && nowMinutes < endMinutes);
-            }
-        }
-        
-        const isPassed = (day === currentDay && endMinutes > 0 && nowMinutes > endMinutes);
-        const isFuture = (day === currentDay && startMinutes > 0 && nowMinutes < startMinutes);
-        const isTomorrow = (day === tomorrowDay);
-        
-        if (isCurrent) className += " current";
-        else if (isPassed) className += " passed";
-        else if (isFuture) className += " future";
-        else if (isTomorrow) className += " tomorrow-lesson";
-        
-        // Tambah kelas khusus untuk ishoma dalam pelajaran panjang
-        if (item.isBreakInLesson) {
-            className += " break-time";
+        } else {
+            // Untuk slot kosong/libur
+            className += " passed";
         }
         
         timeSlot.className = className;
@@ -1189,20 +1220,6 @@ function renderSchedule(day) {
         
         scheduleTable.appendChild(timeSlot);
     });
-}
-
-// ===== FUNGSI UNTUK MENDAPATKAN DURASI PELAJARAN =====
-function getLessonDuration(day, index) {
-    const lesson = scheduleData[day][index];
-    
-    // Jika pelajaran memiliki durasi khusus
-    if (lesson.isLongLesson) {
-        // Bahasa Inggris hari Kamis: 10:30-13:30 = 180 menit
-        return 180;
-    }
-    
-    // Durasi normal 45 menit
-    return 45;
 }
 
 // ===== UPDATE JADWAL ESOK HARI =====
@@ -1310,7 +1327,7 @@ function updateRealTime() {
     document.getElementById("todayDay").textContent = today;
     currentDay = today;
     
-    // Deteksi pelajaran sekarang (dengan perbaikan untuk pelajaran panjang)
+    // Deteksi pelajaran sekarang
     detectCurrentLesson(now);
     
     // Update tab hari ini
@@ -1320,78 +1337,73 @@ function updateRealTime() {
 // ===== DETEKSI PELAJARAN SEKARANG (DIPERBAIKI) =====
 function detectCurrentLesson(now) {
     const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    const nowTime = now.toLocaleTimeString("id-ID", { hour12: false });
     
-    // Reset
+    // Reset state
     currentLessonIndex = -1;
     nextLessonIndex = -1;
     let currentLesson = null;
     let nextLesson = null;
     
+    // Update highlight title berdasarkan waktu
+    const highlightTitle = document.getElementById("highlightTitle");
+    
     // Cek apakah hari ini ada jadwal
     if (!scheduleData[currentDay]) {
         updateDisplayNoSchedule();
+        highlightTitle.textContent = "HARI LIBUR";
         renderSchedule(currentDay);
         return;
     }
     
     const schedule = scheduleData[currentDay];
     
-    // Cari pelajaran yang sedang berlangsung (dengan pengecualian untuk Kamis)
-    for (let i = 0; i < schedule.length; i++) {
-        const lesson = schedule[i];
-        
-        if (lesson.time === "-") continue; // Lewati slot kosong
-        
-        // Parse waktu
-        const [startTime] = lesson.time.split("-");
-        const [hour, minute] = startTime.split(":").map(Number);
-        const startMinutes = hour * 60 + minute;
-        const endMinutes = startMinutes + getLessonDuration(currentDay, i);
-        
-        // Khusus untuk Kamis: Bahasa Inggris yang panjang
-        if (currentDay === "Kamis" && lesson.subject === "Bahasa Inggris") {
-            const englishStart = 10 * 60 + 30; // 10:30
-            const englishEnd = 13 * 60 + 30;   // 13:30
-            
-            if (nowMinutes >= englishStart && nowMinutes < englishEnd) {
-                currentLessonIndex = i;
-                currentLesson = lesson;
-                break;
+    // Cari pelajaran yang sedang berlangsung
+    currentLessonIndex = getCurrentLessonIndex(currentDay, nowMinutes);
+    
+    if (currentLessonIndex !== -1) {
+        currentLesson = schedule[currentLessonIndex];
+        highlightTitle.textContent = "PELAJARAN SEDANG BERLANGSUNG";
+    } else {
+        // Cek apakah sebelum jam sekolah
+        const firstValidLesson = schedule.find(lesson => lesson.time && lesson.time !== "-");
+        if (firstValidLesson) {
+            const firstStart = parseTimeToMinutes(firstValidLesson.time);
+            if (firstStart !== null && nowMinutes < firstStart) {
+                highlightTitle.textContent = "JAM SEKOLAH BELUM DIMULAI";
+            } else {
+                // Cek apakah setelah jam sekolah
+                const lastValidLesson = [...schedule].reverse().find(lesson => lesson.time && lesson.time !== "-");
+                if (lastValidLesson) {
+                    const lastStart = parseTimeToMinutes(lastValidLesson.time);
+                    if (lastStart !== null) {
+                        const lastDuration = lastValidLesson.duration || 45;
+                        const lastEnd = lastStart + lastDuration;
+                        
+                        if (nowMinutes >= lastEnd) {
+                            highlightTitle.textContent = "JAM SEKOLAH SUDAH SELESAI";
+                        } else {
+                            // Cek apakah waktu istirahat (Ishoma)
+                            highlightTitle.textContent = "WAKTU ISTIRAHAT";
+                        }
+                    }
+                }
             }
-        }
-        // Untuk ishoma di tengah pelajaran Bahasa Inggris
-        else if (currentDay === "Kamis" && lesson.isBreakInLesson) {
-            const englishStart = 10 * 60 + 30; // 10:30
-            const englishEnd = 13 * 60 + 30;   // 13:30
-            
-            if (nowMinutes >= englishStart && nowMinutes < englishEnd) {
-                currentLessonIndex = 2; // Index pelajaran Bahasa Inggris
-                currentLesson = schedule[2]; // Ambil data Bahasa Inggris
-                break;
-            }
-        }
-        // Untuk pelajaran normal
-        else if (nowMinutes >= startMinutes && nowMinutes < endMinutes) {
-            currentLessonIndex = i;
-            currentLesson = lesson;
-            break;
         }
     }
     
     // Cari pelajaran berikutnya
-    for (let i = 0; i < schedule.length; i++) {
-        const lesson = schedule[i];
-        
-        if (lesson.time === "-") continue;
-        
-        const [startTime] = lesson.time.split("-");
-        const [hour, minute] = startTime.split(":").map(Number);
-        const startMinutes = hour * 60 + minute;
-        
-        if (nowMinutes < startMinutes) {
-            nextLessonIndex = i;
-            nextLesson = lesson;
-            break;
+    if (schedule) {
+        for (let i = 0; i < schedule.length; i++) {
+            const lesson = schedule[i];
+            if (!lesson.time || lesson.time === "-") continue;
+            
+            const startMinutes = parseTimeToMinutes(lesson.time);
+            if (startMinutes !== null && nowMinutes < startMinutes) {
+                nextLessonIndex = i;
+                nextLesson = lesson;
+                break;
+            }
         }
     }
     
@@ -1409,33 +1421,31 @@ function updateCurrentLessonDisplay(currentLesson, nextLesson, now) {
     
     if (currentLesson) {
         // Ada pelajaran sedang berlangsung
-        document.getElementById("currentSubject").textContent = currentLesson.subject;
-        document.getElementById("currentTeacher").textContent = currentLesson.teacher;
+        let displaySubject = currentLesson.subject;
+        let displayTeacher = currentLesson.teacher;
+        let displayTime = "";
         
-        // Hitung waktu berakhir
-        let endMinutes = 0;
-        let startMinutes = 0;
-        
-        if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris") {
-            startMinutes = 10 * 60 + 30; // 10:30
-            endMinutes = 13 * 60 + 30;   // 13:30
+        const startMinutes = parseTimeToMinutes(currentLesson.time);
+        if (startMinutes !== null) {
+            const duration = currentLesson.duration || 45;
+            const endMinutes = startMinutes + duration;
+            const remaining = endMinutes - nowMinutes;
             
-            // Jika sekarang di waktu ishoma, tampilkan pesan khusus
-            if (nowMinutes >= 12 * 60 && nowMinutes < 12 * 60 + 45) {
-                document.getElementById("currentSubject").textContent = "Bahasa Inggris (Ishoma)";
+            const startTime = formatMinutesToTime(startMinutes);
+            const endTime = formatMinutesToTime(endMinutes);
+            
+            // Khusus untuk Bahasa Inggris di Kamis saat ishoma
+            if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris" && 
+                nowMinutes >= 12 * 60 && nowMinutes < 12 * 60 + 45) {
+                displaySubject = "Bahasa Inggris (Ishoma)";
             }
-        } else {
-            const [startTime] = currentLesson.time.split("-");
-            const [hour, minute] = startTime.split(":").map(Number);
-            startMinutes = hour * 60 + minute;
-            endMinutes = startMinutes + getLessonDuration(currentDay, currentLessonIndex);
+            
+            displayTime = `${startTime} - ${endTime} (${remaining} menit lagi)`;
         }
         
-        const remaining = endMinutes - nowMinutes;
-        const endTime = formatMinutesToTime(endMinutes);
-        
-        document.getElementById("currentTime").textContent = 
-            `${formatMinutesToTime(startMinutes)} - ${endTime} (${remaining} menit lagi)`;
+        document.getElementById("currentSubject").textContent = displaySubject;
+        document.getElementById("currentTeacher").textContent = displayTeacher;
+        document.getElementById("currentTime").textContent = displayTime;
         
         // Update next lesson
         if (nextLesson) {
@@ -1443,13 +1453,14 @@ function updateCurrentLessonDisplay(currentLesson, nextLesson, now) {
             document.getElementById("nextTeacher").textContent = nextLesson.teacher;
             document.getElementById("nextTime").textContent = nextLesson.time;
             
-            const [nextStartTime] = nextLesson.time.split("-");
-            const [nextHour, nextMinute] = nextStartTime.split(":").map(Number);
-            const nextStartMinutes = nextHour * 60 + nextMinute;
-            const timeToNext = nextStartMinutes - nowMinutes;
-            
-            document.getElementById("timeRemaining").textContent = 
-                `${timeToNext} menit lagi`;
+            const nextStartMinutes = parseTimeToMinutes(nextLesson.time);
+            if (nextStartMinutes !== null) {
+                const timeToNext = nextStartMinutes - nowMinutes;
+                document.getElementById("timeRemaining").textContent = 
+                    `${timeToNext} menit lagi`;
+            } else {
+                document.getElementById("timeRemaining").textContent = "Waktu tidak diketahui";
+            }
         } else {
             // Tidak ada pelajaran berikutnya
             document.getElementById("nextSubject").textContent = "Tidak ada";
@@ -1460,14 +1471,12 @@ function updateCurrentLessonDisplay(currentLesson, nextLesson, now) {
     } else {
         // Tidak ada pelajaran yang berlangsung
         const firstLesson = scheduleData[currentDay] ? 
-            scheduleData[currentDay].find(lesson => lesson.time !== "-") : null;
+            scheduleData[currentDay].find(lesson => lesson.time && lesson.time !== "-") : null;
         
         if (firstLesson) {
-            const [firstStartTime] = firstLesson.time.split("-");
-            const [firstHour, firstMinute] = firstStartTime.split(":").map(Number);
-            const firstStartMinutes = firstHour * 60 + firstMinute;
+            const firstStartMinutes = parseTimeToMinutes(firstLesson.time);
             
-            if (nowMinutes < firstStartMinutes) {
+            if (firstStartMinutes !== null && nowMinutes < firstStartMinutes) {
                 // Sebelum jam sekolah
                 document.getElementById("currentSubject").textContent = "Belum dimulai";
                 document.getElementById("currentTeacher").textContent = "-";
@@ -1481,50 +1490,63 @@ function updateCurrentLessonDisplay(currentLesson, nextLesson, now) {
                 document.getElementById("timeRemaining").textContent = 
                     `${timeToFirst} menit lagi`;
             } else {
-                // Setelah jam sekolah atau istirahat
-                const lastLesson = scheduleData[currentDay].filter(lesson => lesson.time !== "-").pop();
-                if (lastLesson) {
-                    const [lastStartTime] = lastLesson.time.split("-");
-                    const [lastHour, lastMinute] = lastStartTime.split(":").map(Number);
-                    const lastEndMinutes = lastHour * 60 + lastMinute + getLessonDuration(currentDay, 
-                        scheduleData[currentDay].indexOf(lastLesson));
+                // Setelah jam sekolah atau istirahat (Ishoma)
+                const lastLesson = [...scheduleData[currentDay]]
+                    .reverse()
+                    .find(lesson => lesson.time && lesson.time !== "-");
                     
-                    if (nowMinutes >= lastEndMinutes) {
-                        // Setelah jam sekolah
-                        document.getElementById("currentSubject").textContent = "Tidak ada";
-                        document.getElementById("currentTeacher").textContent = "-";
-                        document.getElementById("currentTime").textContent = "Jam sekolah sudah selesai";
+                if (lastLesson) {
+                    const lastStartMinutes = parseTimeToMinutes(lastLesson.time);
+                    if (lastStartMinutes !== null) {
+                        const lastDuration = lastLesson.duration || 45;
+                        const lastEndMinutes = lastStartMinutes + lastDuration;
                         
-                        document.getElementById("nextSubject").textContent = "Libur";
-                        document.getElementById("nextTeacher").textContent = "-";
-                        document.getElementById("nextTime").textContent = "07:15";
-                        document.getElementById("timeRemaining").textContent = "Besok pagi";
-                    } else {
-                        // Di antara pelajaran (istirahat)
-                        document.getElementById("currentSubject").textContent = "Waktu Istirahat";
-                        document.getElementById("currentTeacher").textContent = "-";
-                        document.getElementById("currentTime").textContent = "Istirahat antar pelajaran";
-                        
-                        // Cari pelajaran berikutnya
-                        const next = scheduleData[currentDay].find(lesson => {
-                            if (lesson.time === "-") return false;
-                            const [startTime] = lesson.time.split("-");
-                            const [hour, minute] = startTime.split(":").map(Number);
-                            return hour * 60 + minute > nowMinutes;
-                        });
-                        
-                        if (next) {
-                            document.getElementById("nextSubject").textContent = next.subject;
-                            document.getElementById("nextTeacher").textContent = next.teacher;
-                            document.getElementById("nextTime").textContent = next.time;
+                        if (nowMinutes >= lastEndMinutes) {
+                            // Setelah jam sekolah
+                            document.getElementById("currentSubject").textContent = "Tidak ada";
+                            document.getElementById("currentTeacher").textContent = "-";
+                            document.getElementById("currentTime").textContent = "Jam sekolah sudah selesai";
                             
-                            const [nextStartTime] = next.time.split("-");
-                            const [nextHour, nextMinute] = nextStartTime.split(":").map(Number);
-                            const nextStartMinutes = nextHour * 60 + nextMinute;
-                            const timeToNext = nextStartMinutes - nowMinutes;
+                            document.getElementById("nextSubject").textContent = "Libur";
+                            document.getElementById("nextTeacher").textContent = "-";
+                            document.getElementById("nextTime").textContent = "07:15";
+                            document.getElementById("timeRemaining").textContent = "Besok pagi";
+                        } else {
+                            // Di antara pelajaran (istirahat - Ishoma)
+                            // Cek apakah ini waktu Ishoma
+                            const isIshomaTime = scheduleData[currentDay].some(lesson => 
+                                lesson.isBreak && lesson.time && parseTimeToMinutes(lesson.time) === 12 * 60
+                            );
                             
-                            document.getElementById("timeRemaining").textContent = 
-                                `${timeToNext} menit lagi`;
+                            if (isIshomaTime) {
+                                document.getElementById("currentSubject").textContent = "Ishoma";
+                                document.getElementById("currentTeacher").textContent = "-";
+                                document.getElementById("currentTime").textContent = "12:00 - 12:45";
+                            } else {
+                                document.getElementById("currentSubject").textContent = "Waktu Istirahat";
+                                document.getElementById("currentTeacher").textContent = "-";
+                                document.getElementById("currentTime").textContent = "Istirahat antar pelajaran";
+                            }
+                            
+                            // Cari pelajaran berikutnya
+                            const next = scheduleData[currentDay].find(lesson => {
+                                if (!lesson.time || lesson.time === "-") return false;
+                                const startMinutes = parseTimeToMinutes(lesson.time);
+                                return startMinutes !== null && startMinutes > nowMinutes;
+                            });
+                            
+                            if (next) {
+                                document.getElementById("nextSubject").textContent = next.subject;
+                                document.getElementById("nextTeacher").textContent = next.teacher;
+                                document.getElementById("nextTime").textContent = next.time;
+                                
+                                const nextStartMinutes = parseTimeToMinutes(next.time);
+                                if (nextStartMinutes !== null) {
+                                    const timeToNext = nextStartMinutes - nowMinutes;
+                                    document.getElementById("timeRemaining").textContent = 
+                                        `${timeToNext} menit lagi`;
+                                }
+                            }
                         }
                     }
                 }
@@ -1562,84 +1584,74 @@ function checkForNotifications(currentLesson, nextLesson, now) {
     
     // Cek jika pelajaran baru dimulai
     if (currentLesson) {
-        let startMinutes = 0;
+        const startMinutes = parseTimeToMinutes(currentLesson.time);
         
-        if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris") {
-            startMinutes = 10 * 60 + 30;
-        } else {
-            const [startTime] = currentLesson.time.split("-");
-            const [hour, minute] = startTime.split(":").map(Number);
-            startMinutes = hour * 60 + minute;
-        }
-        
-        // Jika waktu sekarang tepat di awal pelajaran (dalam 1 menit pertama)
-        if (nowMinutes - startMinutes <= 1) {
-            const notificationKey = `lesson_start_${currentDay}_${startMinutes}`;
-            if (lastNotificationTime !== notificationKey) {
-                let message = `Pelajaran ${currentLesson.subject} dimulai`;
-                if (currentLesson.teacher !== "-") {
-                    message += ` dengan ${currentLesson.teacher}`;
-                }
-                showNotification(message, "current");
-                lastNotificationTime = notificationKey;
-                lastNotificationType = "start";
-            }
-        }
-        
-        // Jika pelajaran akan segera berakhir (5 menit terakhir)
-        let endMinutes = 0;
-        if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris") {
-            endMinutes = 13 * 60 + 30;
-        } else {
-            endMinutes = startMinutes + getLessonDuration(currentDay, currentLessonIndex);
-        }
-        
-        if (endMinutes - nowMinutes <= 5 && endMinutes - nowMinutes > 0) {
-            const notificationKey = `lesson_ending_${currentDay}_${startMinutes}`;
-            if (lastNotificationTime !== notificationKey) {
-                const remaining = endMinutes - nowMinutes;
-                showNotification(`${remaining} menit lagi pelajaran ${currentLesson.subject} selesai`, "current");
-                lastNotificationTime = notificationKey;
-                lastNotificationType = "ending";
-            }
-        }
-        
-        // Khusus untuk Bahasa Inggris di Kamis: notifikasi ishoma
-        if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris") {
-            if (nowMinutes >= 12 * 60 - 5 && nowMinutes < 12 * 60) {
-                const notificationKey = `ishoma_soon_${currentDay}`;
+        if (startMinutes !== null) {
+            // Jika waktu sekarang tepat di awal pelajaran (dalam 1 menit pertama)
+            if (nowMinutes - startMinutes <= 1) {
+                const notificationKey = `lesson_start_${currentDay}_${startMinutes}`;
                 if (lastNotificationTime !== notificationKey) {
-                    showNotification("5 menit lagi waktu ishoma (tetap dalam pelajaran Bahasa Inggris)", "break");
+                    let message = `Pelajaran ${currentLesson.subject} dimulai`;
+                    if (currentLesson.teacher !== "-") {
+                        message += ` dengan ${currentLesson.teacher}`;
+                    }
+                    showNotification(message, "current");
                     lastNotificationTime = notificationKey;
-                    lastNotificationType = "ishoma_soon";
+                    lastNotificationType = "start";
                 }
             }
             
-            if (nowMinutes >= 12 * 60 && nowMinutes < 12 * 60 + 5) {
-                const notificationKey = `ishoma_start_${currentDay}`;
+            // Jika pelajaran akan segera berakhir (5 menit terakhir)
+            const duration = currentLesson.duration || 45;
+            const endMinutes = startMinutes + duration;
+            
+            if (endMinutes - nowMinutes <= 5 && endMinutes - nowMinutes > 0) {
+                const notificationKey = `lesson_ending_${currentDay}_${startMinutes}`;
                 if (lastNotificationTime !== notificationKey) {
-                    showNotification("Waktu ishoma (12:00-12:45) - pelajaran Bahasa Inggris berlanjut setelahnya", "break");
+                    const remaining = endMinutes - nowMinutes;
+                    showNotification(`${remaining} menit lagi pelajaran ${currentLesson.subject} selesai`, "current");
                     lastNotificationTime = notificationKey;
-                    lastNotificationType = "ishoma_start";
+                    lastNotificationType = "ending";
+                }
+            }
+            
+            // Khusus untuk Bahasa Inggris di Kamis: notifikasi ishoma
+            if (currentDay === "Kamis" && currentLesson.subject === "Bahasa Inggris") {
+                if (nowMinutes >= 12 * 60 - 5 && nowMinutes < 12 * 60) {
+                    const notificationKey = `ishoma_soon_${currentDay}`;
+                    if (lastNotificationTime !== notificationKey) {
+                        showNotification("5 menit lagi waktu ishoma (tetap dalam pelajaran Bahasa Inggris)", "break");
+                        lastNotificationTime = notificationKey;
+                        lastNotificationType = "ishoma_soon";
+                    }
+                }
+                
+                if (nowMinutes >= 12 * 60 && nowMinutes < 12 * 60 + 5) {
+                    const notificationKey = `ishoma_start_${currentDay}`;
+                    if (lastNotificationTime !== notificationKey) {
+                        showNotification("Waktu ishoma (12:00-12:45) - pelajaran Bahasa Inggris berlanjut setelahnya", "break");
+                        lastNotificationTime = notificationKey;
+                        lastNotificationType = "ishoma_start";
+                    }
                 }
             }
         }
     }
     
-    // Cek jika akan istirahat biasa
+    // Cek jika akan istirahat (Ishoma)
     if (nextLesson && !currentLesson) {
-        const [startTime] = nextLesson.time.split("-");
-        const [hour, minute] = startTime.split(":").map(Number);
-        const startMinutes = hour * 60 + minute;
+        const startMinutes = parseTimeToMinutes(nextLesson.time);
         
-        // Jika pelajaran berikutnya akan dimulai dalam 5 menit
-        if (startMinutes - nowMinutes <= 5 && startMinutes - nowMinutes > 0) {
-            const notificationKey = `next_soon_${currentDay}_${startMinutes}`;
-            if (lastNotificationTime !== notificationKey) {
-                const timeToNext = startMinutes - nowMinutes;
-                showNotification(`${timeToNext} menit lagi pelajaran ${nextLesson.subject} dimulai`, "next");
-                lastNotificationTime = notificationKey;
-                lastNotificationType = "next";
+        if (startMinutes !== null) {
+            // Jika pelajaran berikutnya akan dimulai dalam 5 menit
+            if (startMinutes - nowMinutes <= 5 && startMinutes - nowMinutes > 0) {
+                const notificationKey = `next_soon_${currentDay}_${startMinutes}`;
+                if (lastNotificationTime !== notificationKey) {
+                    const timeToNext = startMinutes - nowMinutes;
+                    showNotification(`${timeToNext} menit lagi pelajaran ${nextLesson.subject} dimulai`, "next");
+                    lastNotificationTime = notificationKey;
+                    lastNotificationType = "next";
+                }
             }
         }
     }
@@ -1650,7 +1662,7 @@ function checkForNotifications(currentLesson, nextLesson, now) {
         if (lastNotificationTime !== notificationKey) {
             const tomorrow = getTomorrowIndonesian();
             if (scheduleData[tomorrow]) {
-                const firstLesson = scheduleData[tomorrow].find(lesson => lesson.time !== "-");
+                const firstLesson = scheduleData[tomorrow].find(lesson => lesson.time && lesson.time !== "-");
                 if (firstLesson) {
                     showNotification(`Besok ${tomorrow}: ${firstLesson.subject} jam ${firstLesson.time} dengan ${firstLesson.teacher}`, "tomorrow");
                     lastNotificationTime = notificationKey;
@@ -1679,13 +1691,6 @@ function showNotification(message, type) {
     }, 5000);
 }
 
-// ===== FUNGSI BANTU =====
-function formatMinutesToTime(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}
-
 function updateDisplayNoSchedule() {
     document.getElementById("currentSubject").textContent = "Libur";
     document.getElementById("currentTeacher").textContent = "-";
@@ -1701,5 +1706,4 @@ function updateDisplayNoSchedule() {
 window.onload = initApp;
 </script>
 </body>
-
 </html>
